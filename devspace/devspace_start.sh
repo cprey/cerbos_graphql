@@ -45,4 +45,5 @@ export PATH="./bin:$PATH"
 
 # Open shell
 #bash --norc
-npm start /app/src/index.ts
+npm install
+npm start index.ts

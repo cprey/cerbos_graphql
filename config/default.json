@@ -7,7 +7,7 @@
     "introspection": true
   },
   "cerbos": {
-    "host": "172.17.0.2:3593",
+    "host": "cerbos:3593",
     "tls": false
   }
 }
