@@ -1,0 +1,13 @@
+{
+  "port": 8000,
+  "log": "all",
+  "graphql": {
+    "playground": true,
+    "tracing": true,
+    "introspection": true
+  },
+  "cerbos": {
+    "host": "172.17.0.2:3593",
+    "tls": false
+  }
+}
