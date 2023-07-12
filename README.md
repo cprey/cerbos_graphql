@@ -58,6 +58,48 @@ and the GraphQL Query
 
 > CLICK THE DAMN BUTTON ALREADY!
 
+## Sample Queries
+
+To run these you need to set an HTTP header called `token` which identifies the user (and thus there permissions)
+
+Some exampe tokens:
+
+- `key:sajit:it` is an IT Admin
+- `key:joe:finance` is an EMEA Finance person
+- `key:sally:sales` is an EMEA Sales person
+- `key:zeena:sales` is an North America sales person
+- `key:john:manager-emea` is an EMEA Manager in sales
+- `key:brock:manager-na` is an North America Manager in sales
+
+### Get an Expense
+
+```console
+{
+  expense(id: "expense2") {
+    id
+    amount
+    status
+    vendor {
+      name
+    }
+    createdBy {
+      name
+    }
+    approvedBy {
+      name
+    }
+  }
+}
+```
+
+### Approve an Expense
+
+```console
+mutation {
+  approveExpense(id: "expense1")
+}
+```
+
 ## Details
 
 This project showcases using Cerbos inside of a GraphQL server. The server is written in typescript and makes used of [type-graphql](https://typegraphql.com/) to create the schema and resolvers and [TypeDI](https://github.com/typestack/typedi) to handle dependency injection.
