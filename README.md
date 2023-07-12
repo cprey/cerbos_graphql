@@ -1,18 +1,62 @@
 # Cerbos GraphQL Demo
 
-This Apollo GraphQL demo from Cerbos that has been pulled into its own repo an run via DevSpace.
+This [Cerbos Apollo GraphQL demo](https://github.com/cerbos/demo-graphql) has been pulled into this repo so you can run via DevSpace. Their tutorial made you click and edit and gosh what a headache ☠️
 
-## Deployment and Usage
+## Deployment
 
 Deploy is about as simple as it gets.
 
-```bash
+- grab the PAT token from 1Password (search for cerbos)
+- create a Kubernetes secret in your cluster (hopefully it's Loft 😉)
+- run `devspace dev`
+
+```console
+kubectl create secret generic cerbos-github-token --from-literal=GITHUB_TOKEN=thisisnttherealPATtokenwhichisfoundin1password
+```
+
+```console
 devspace dev
 ```
 
+This will use Node18 to install Apollo GraphQL server and the official Cerbos helm chart. The Cerbos policy configurtion is pulled from this very GitHub repo using [this mechanism](https://docs.cerbos.dev/cerbos/latest/installation/helm.html#_deploy_cerbos_configured_to_read_policies_from_a_github_repository) so you can PR this repo if you want to make policy changes/additions.
+
+## Usage
+
+Launch GraphQL Playground [localhhost:8000](http://localhost:8000) in your local browser.
+
+Edit the HTTP headers by adding the JSON as pictured below.
+
+![img1](./playground.png)
 
 
+```json
+{
+ "token": "key:joe:finance" 
+}
+```
 
+and the GraphQL Query
+
+```json
+{
+  expense(id: "expense2") {
+    id
+    amount
+    status
+    vendor {
+      name
+    }
+    createdBy {
+      name
+    }
+    approvedBy {
+      name
+    }
+  }
+}
+```
+
+> CLICK THE DAMN BUTTON ALREADY!
 
 ## Details
 
