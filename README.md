@@ -62,7 +62,7 @@ and the GraphQL Query
 
 To run these you need to set an HTTP header called `token` which identifies the user (and thus there permissions)
 
-Some exampe tokens:
+Some example tokens:
 
 - `key:sajit:it` is an IT Admin
 - `key:joe:finance` is an EMEA Finance person
@@ -70,6 +70,12 @@ Some exampe tokens:
 - `key:zeena:sales` is an North America sales person
 - `key:john:manager-emea` is an EMEA Manager in sales
 - `key:brock:manager-na` is an North America Manager in sales
+
+```
+{
+  "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
+}
+```
 
 ### Get an Expense
 
@@ -88,6 +94,15 @@ Some exampe tokens:
     approvedBy {
       name
     }
+  }
+}
+```
+```
+{
+  user(id: 1) {
+    id
+    firstName
+    lastName
   }
 }
 ```

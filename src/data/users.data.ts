@@ -1,66 +1,39 @@
-// Copyright 2021 Zenauth Ltd.
-// SPDX-License-Identifier: Apache-2.0
-
 import User from "../types/User.type";
-import { Departments } from "./departments.data";
-import { Region } from "./regions.data";
+import { personById } from "./persons.data";
 
 export enum UserRole {
-  ADMIN = "ADMIN",
   USER = "USER",
-  MANAGER = "MANAGER",
+  ORGANIZER = "ORGANIZER",
+  TEAM_MEMBER = "TEAM_MEMBER",
+  BENEFICIARY = "BENEFICIARY",
+}
+
+export enum UserStatus {
+  INACTIVE,
+  ACTIVE
 }
 
 export const Users: User[] = [
   {
-    id: "user1",
-    name: "Sajit P",
-    role: UserRole.ADMIN,
-    department: Departments.IT,
-    token: "key:sajit:it",
-  },
+    id: 1,
+    personId: 1,
+    person: personById(1),
+    email: "test+001@gofundme.com",
+    firstName: "Frodo",
+    lastName: "Baggins",
+    status: UserStatus.ACTIVE
+  }, 
   {
-    id: "user2",
-    name: "Joe Clark",
-    role: UserRole.USER,
-    department: Departments.FINANCE,
-    token: "key:joe:finance",
-    region: Region.EMEA,
-  },
-  {
-    id: "user3",
-    name: "Sally Sales",
-    role: UserRole.USER,
-    department: Departments.SALES,
-    token: "key:sally:sales",
-    region: Region.EMEA,
-  },
-  {
-    id: "user4",
-    name: "Brock Jackman",
-    role: UserRole.MANAGER,
-    department: Departments.SALES,
-    token: "key:brock:manager-na",
-    region: Region.NA,
-  },
-  {
-    id: "user5",
-    name: "John Smith",
-    role: UserRole.MANAGER,
-    department: Departments.SALES,
-    token: "key:john:manager-emea",
-    region: Region.EMEA,
-  },
-  {
-    id: "user6",
-    name: "Zeena",
-    role: UserRole.USER,
-    department: Departments.SALES,
-    token: "key:zeena:sales",
-    region: Region.NA,
+    id: 2,
+    personId: 2,
+    person: personById(2),
+    email: "test+002@gofundme.com",
+    firstName: "Samwise",
+    lastName: "Gamgee",
+    status: UserStatus.ACTIVE
   },
 ];
 
-export const userById = (id: string): User => {
+export const userById = (id: number): User => {
   return Users.find((c) => c.id === id);
 };

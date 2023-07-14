@@ -5,7 +5,7 @@ import { AuthenticationError } from "apollo-server-errors";
 import { ExpressContext } from "apollo-server-express/dist/ApolloServer";
 import DataLoader from "dataloader";
 import Container from "typedi";
-import { Users } from "../data/users.data";
+import { Persons } from "../data/persons.data";
 import {
   CerbosService,
 } from "../services/Cerbos.service";
@@ -14,6 +14,8 @@ import {
 } from "@cerbos/core"
 import logger from "../utils/logger";
 import { IContext } from "./context.interface";
+
+import * as jose from "jose";
 
 const log = logger("createContext");
 
@@ -25,29 +27,34 @@ export default async (request: ExpressContext): Promise<IContext> => {
   const container = Container.of(requestId);
   const cerbosService = Container.get(CerbosService);
 
-  // No token set access is denied
-  if (!request.req.headers["token"])
+  if (!request.req.headers["x-auth-token"]) {
     throw new AuthenticationError("Access denied: No token provided");
+  }
 
-  // DO SOME ACTUAL AUTHENTICATION AGAINST A DB etc
-  const user = Users.find((u) => u.token === request.req.headers["token"]);
+  if (Array.isArray(request.req.headers["x-auth-token"])) {
+    throw new AuthenticationError("Access denied: Token not valid");
+  }
+  const claims = jose.decodeJwt(request.req.headers["x-auth-token"])
+  const person = Persons.find((u) => u.id === parseInt(claims.sub));
 
   // User not found so denied
-  if (!user) throw new AuthenticationError("Access denied: Token not valid");
+  if (!person) {
+    throw new AuthenticationError("Access denied: Token not valid");
+  }
 
   // Set the context in the container
   const context: IContext = {
     req: request.req,
     requestId,
-    user,
+    person,
     loaders: {
       authorize: new DataLoader(
         async (resources: ResourceCheck[]) => {
           const results = await cerbosService.cerbos.checkResources({
             principal: {
-              id: user.id,
-              roles: [user.role.toString()],
-              attributes: JSON.parse(JSON.stringify(user)),
+              id: person.id.toString(),
+              roles: [person.role.toString()],
+              attributes: JSON.parse(JSON.stringify(person)),
             },
             resources,
           });

@@ -1,6 +1,3 @@
-// Copyright 2021 Zenauth Ltd.
-// SPDX-License-Identifier: Apache-2.0
-
 import { ApolloError } from "apollo-server-errors";
 import { config } from "node-config-ts";
 import { Service } from "typedi";
@@ -16,8 +13,6 @@ export class AuthorizationError extends ApolloError {
     Object.defineProperty(this, "name", { value: "AuthorizationError" });
   }
 }
-
-
 
 @Service({ global: true })
 export class CerbosService {

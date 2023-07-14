@@ -5,24 +5,31 @@ import { ApolloServer } from "apollo-server-express";
 import { config } from "node-config-ts";
 import { buildSchema, registerEnumType, ResolverData } from "type-graphql";
 import Container from "typedi";
-import { Departments } from "../data/departments.data";
-import { UserRole } from "../data/users.data";
+import { UserRole, UserStatus } from "../data/users.data";
 
 import logger from "../utils/logger";
 import { authChecker } from "./auth-checker";
 import { IContext } from "./context.interface";
+import { PersonRole, PersonStatus } from "../data/persons.data";
 
 const log = logger("ApolloServer");
 
 const registerEnums = () => {
+  registerEnumType(PersonRole, {
+    name: "PersonRole", // this one is mandatory
+    description: "The role the person has", // this one is optional
+  });
+  registerEnumType(PersonStatus, {
+    name: "PersonStatus", // this one is mandatory
+    description: "Status of the Person", // this one is optional
+  });
   registerEnumType(UserRole, {
     name: "UserRole", // this one is mandatory
     description: "The role the user has", // this one is optional
   });
-
-  registerEnumType(Departments, {
-    name: "Departments", // this one is mandatory
-    description: "Business departments", // this one is optional
+  registerEnumType(UserStatus, {
+    name: "UserStatus", // this one is mandatory
+    description: "Status of the User", // this one is optional
   });
 };
 
