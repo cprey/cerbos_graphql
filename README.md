@@ -64,39 +64,15 @@ To run these you need to set an HTTP header called `token` which identifies the 
 
 Some example tokens:
 
-- `key:sajit:it` is an IT Admin
-- `key:joe:finance` is an EMEA Finance person
-- `key:sally:sales` is an EMEA Sales person
-- `key:zeena:sales` is an North America sales person
-- `key:john:manager-emea` is an EMEA Manager in sales
-- `key:brock:manager-na` is an North America Manager in sales
-
+1) the token below maps to the first active Person with a User account
 ```
 {
   "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
 }
 ```
 
-### Get an Expense
+### Get an GFM User for the Given Identity
 
-```console
-{
-  expense(id: "expense2") {
-    id
-    amount
-    status
-    vendor {
-      name
-    }
-    createdBy {
-      name
-    }
-    approvedBy {
-      name
-    }
-  }
-}
-```
 ```
 {
   user(id: 1) {
