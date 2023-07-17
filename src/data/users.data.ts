@@ -10,7 +10,7 @@ export enum UserRole {
 
 export enum UserStatus {
   INACTIVE,
-  ACTIVE
+  ACTIVE,
 }
 
 export const Users: User[] = [
@@ -21,8 +21,8 @@ export const Users: User[] = [
     email: "test+001@gofundme.com",
     firstName: "Frodo",
     lastName: "Baggins",
-    status: UserStatus.ACTIVE
-  }, 
+    status: UserStatus.ACTIVE,
+  },
   {
     id: 2,
     personId: 2,
@@ -30,7 +30,7 @@ export const Users: User[] = [
     email: "test+002@gofundme.com",
     firstName: "Samwise",
     lastName: "Gamgee",
-    status: UserStatus.ACTIVE
+    status: UserStatus.ACTIVE,
   },
 ];
 

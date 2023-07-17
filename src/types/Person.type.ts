@@ -17,7 +17,7 @@ export default class Person {
 
   @Field()
   role: PersonRole;
-  
+
   @Field()
   status: PersonStatus;
 }

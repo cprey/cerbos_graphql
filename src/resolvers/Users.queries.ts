@@ -2,10 +2,7 @@ import { ApolloError } from "apollo-server-errors";
 import { Arg, Ctx, Query } from "type-graphql";
 import { Inject, Service } from "typedi";
 import { IContext } from "../server/context.interface";
-import {
-  AuthorizationError,
-  CerbosService,
-} from "../services/Cerbos.service";
+import { AuthorizationError, CerbosService } from "../services/Cerbos.service";
 import { Effect, CheckResourcesResult } from "@cerbos/core";
 import { UsersService } from "../services/Users.service";
 import User from "../types/User.type";
@@ -39,28 +36,27 @@ class UsersQueries {
             id: user.id.toString(),
             kind: "user:object",
             attributes: {
-                id: user.id,
-                status: user.status.toString(),
-                ownerId: user.personId,
+              id: user.id,
+              status: user.status.toString(),
+              ownerId: user.personId,
             },
           },
         };
-      })
+      }),
     );
     return users.filter(
-      (_, i) => (authorized[i] as CheckResourcesResult).actions[action] === Effect.ALLOW
+      (_, i) =>
+        (authorized[i] as CheckResourcesResult).actions[action] ===
+        Effect.ALLOW,
     );
   }
 
   @Query((returns) => User)
-  async user(
-    @Arg("id") id: number,
-    @Ctx() context: IContext
-  ): Promise<User> {
+  async user(@Arg("id") id: number, @Ctx() context: IContext): Promise<User> {
     // Get the user by ID
     const user = await this.usersService.get(id);
     if (!user) {
-        throw new ApolloError("User not found");
+      throw new ApolloError("User not found");
     }
     // This will authorize the user against cerbos or else through an authorization error
 
@@ -70,13 +66,13 @@ class UsersQueries {
         id: user.id.toString(),
         kind: "user:object",
         attributes: {
-            id: user.id.toString(),
-            status: user.status.toString(),
-            ownerId: user.personId.toString(),
+          id: user.id.toString(),
+          status: user.status.toString(),
+          ownerId: user.personId.toString(),
         },
       },
     });
-        if (authorized.actions["view"] !== Effect.ALLOW) {
+    if (authorized.actions["view"] !== Effect.ALLOW) {
       throw new AuthorizationError("Access denied");
     }
     // Return the user

@@ -18,8 +18,9 @@ if (
           if (info.message && info.message.constructor === Object) {
             info.message = JSON.stringify(info.message, null, 4);
           }
-          info.message = `[${info["logNamespace"] || info["namespace"]}] ${info.message
-            }`;
+          info.message = `[${info["logNamespace"] || info["namespace"]}] ${
+            info.message
+          }`;
           if (level === "VERBOSE") {
             level = "DEBUG";
           }
@@ -32,9 +33,9 @@ if (
           // }
           return info;
         })(),
-        winston.format.json()
+        winston.format.json(),
       ),
-    })
+    }),
   );
 } else {
   logger.add(
@@ -44,14 +45,16 @@ if (
         winston.format.colorize(),
         winston.format.printf((info) => {
           if (info.stack) {
-            return `${info.timestamp} ${info.level} [${info["logNamespace"] ||
-              info["namespace"]}] ${info.message}\n${info.stack}`;
+            return `${info.timestamp} ${info.level} [${
+              info["logNamespace"] || info["namespace"]
+            }] ${info.message}\n${info.stack}`;
           }
-          return `${info.timestamp} ${info.level} [${info["logNamespace"] ||
-            info["namespace"]}] ${info.message}`;
-        })
+          return `${info.timestamp} ${info.level} [${
+            info["logNamespace"] || info["namespace"]
+          }] ${info.message}`;
+        }),
       ),
-    })
+    }),
   );
 }
 

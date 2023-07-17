@@ -6,7 +6,7 @@ export enum PersonRole {
 
 export enum PersonStatus {
   INACTIVE,
-  ACTIVE
+  ACTIVE,
 }
 
 export const Persons: Person[] = [
@@ -16,7 +16,7 @@ export const Persons: Person[] = [
     firstName: "Frodo",
     lastName: "Baggins",
     role: PersonRole.PERSON, // @todo Resolve this from a PersonService interface as it is not in our DB
-    status: PersonStatus.ACTIVE
+    status: PersonStatus.ACTIVE,
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ export const Persons: Person[] = [
     firstName: "Samwise",
     lastName: "Gamgee",
     role: PersonRole.PERSON,
-    status: PersonStatus.ACTIVE
+    status: PersonStatus.ACTIVE,
   },
 ];
 
