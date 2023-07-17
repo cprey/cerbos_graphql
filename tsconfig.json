@@ -10,12 +10,6 @@
     "experimentalDecorators": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src",
-    "config"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["src", "config"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

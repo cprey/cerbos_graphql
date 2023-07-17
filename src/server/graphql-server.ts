@@ -34,7 +34,7 @@ const registerEnums = () => {
 };
 
 export async function createGQLServer(
-  createContextFn: Function
+  createContextFn: Function,
 ): Promise<ApolloServer> {
   log.info("GraphQL schema building");
   try {

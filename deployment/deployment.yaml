@@ -15,13 +15,13 @@ spec:
         app: cerbos-demo-graphql
     spec:
       imagePullSecrets:
-        - name: github-packages-token    
+        - name: github-packages-token
       containers:
-      - name: demo-graphql
-        image: ghcr.io/cerbos/demo-graphql:v0.0.9
-        ports:
-        - containerPort: 5000
-      - name: cerbos
-        image: ghcr.io/cerbos/demo-graphql-cerbos:v0.0.9
-        ports:
-        - containerPort: 9999
+        - name: demo-graphql
+          image: ghcr.io/cerbos/demo-graphql:v0.0.9
+          ports:
+            - containerPort: 5000
+        - name: cerbos
+          image: ghcr.io/cerbos/demo-graphql-cerbos:v0.0.9
+          ports:
+            - containerPort: 9999

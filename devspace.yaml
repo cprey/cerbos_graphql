@@ -43,7 +43,7 @@ deployments:
         image:
           tag: 0.28.0
       valuesFiles:
-      - devspace/cerbos-values.yaml
+        - devspace/cerbos-values.yaml
 
 # This is a list of `dev` containers that are based on the containers created by your deployments
 dev:
@@ -52,7 +52,7 @@ dev:
     imageSelector: node:18-bullseye
     # Replace the container image with this dev-optimized image (allows to skip image building during development)
     #devImage: ghcr.io/loft-sh/devspace-containers/typescript:18-alpine
-    ports: 
+    ports:
       - port: 8000:8000
     # Sync files between the local filesystem and the development container
     workingDir: /app/src

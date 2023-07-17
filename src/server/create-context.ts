@@ -6,12 +6,8 @@ import { ExpressContext } from "apollo-server-express/dist/ApolloServer";
 import DataLoader from "dataloader";
 import Container from "typedi";
 import { Persons } from "../data/persons.data";
-import {
-  CerbosService,
-} from "../services/Cerbos.service";
-import {
-  ResourceCheck
-} from "@cerbos/core"
+import { CerbosService } from "../services/Cerbos.service";
+import { ResourceCheck } from "@cerbos/core";
 import logger from "../utils/logger";
 import { IContext } from "./context.interface";
 
@@ -22,7 +18,7 @@ const log = logger("createContext");
 export default async (request: ExpressContext): Promise<IContext> => {
   // Create a new request container
   const requestId = Math.floor(
-    Math.random() * Number.MAX_SAFE_INTEGER
+    Math.random() * Number.MAX_SAFE_INTEGER,
   ).toString();
   const container = Container.of(requestId);
   const cerbosService = Container.get(CerbosService);
@@ -34,7 +30,7 @@ export default async (request: ExpressContext): Promise<IContext> => {
   if (Array.isArray(request.req.headers["x-auth-token"])) {
     throw new AuthenticationError("Access denied: Token not valid");
   }
-  const claims = jose.decodeJwt(request.req.headers["x-auth-token"])
+  const claims = jose.decodeJwt(request.req.headers["x-auth-token"]);
   const person = Persons.find((p) => p.id === parseInt(claims.sub));
 
   // User not found so denied
@@ -48,26 +44,22 @@ export default async (request: ExpressContext): Promise<IContext> => {
     requestId,
     person,
     loaders: {
-      authorize: new DataLoader(
-        async (resources: ResourceCheck[]) => {
-          const results = await cerbosService.cerbos.checkResources({
-            principal: {
-              id: person.id.toString(),
-              roles: [person.role.toString()],
-              attributes: JSON.parse(JSON.stringify(person)),
-            },
-            resources,
+      authorize: new DataLoader(async (resources: ResourceCheck[]) => {
+        const results = await cerbosService.cerbos.checkResources({
+          principal: {
+            id: person.id.toString(),
+            roles: [person.role.toString()],
+            attributes: JSON.parse(JSON.stringify(person)),
+          },
+          resources,
+        });
+        return resources.map((key) => {
+          return results.findResult({
+            kind: key.resource.kind,
+            id: key.resource.id,
           });
-          return resources.map(
-            (key) => {
-              return results.findResult({ 
-                kind: key.resource.kind, 
-                id: key.resource.id
-              })
-            }
-          );
-        }
-      ),
+        });
+      }),
     },
   };
   container.set("context", context);
