@@ -60,10 +60,6 @@ export default async (request: ExpressContext): Promise<IContext> => {
           });
           return resources.map(
             (key) => {
-              console.log({ 
-                kind: key.resource.kind, 
-                id: key.resource.id
-              });
               return results.findResult({ 
                 kind: key.resource.kind, 
                 id: key.resource.id

@@ -76,9 +76,7 @@ class UsersQueries {
         },
       },
     });
-    
-    console.log(authorized);
-    if (authorized.actions["view"] !== Effect.ALLOW) {
+        if (authorized.actions["view"] !== Effect.ALLOW) {
       throw new AuthorizationError("Access denied");
     }
     // Return the user
