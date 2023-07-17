@@ -10,11 +10,11 @@ derivedRoles:
     condition:
       match:
         expr: request.resource.attr.ownerId == request.principal.id
-  - name: ORGANIZER
-    parentRoles: ["USER"]
-    condition:
-      match:
-        expr: request.resource.attr.ownerId == request.principal.id
+  # - name: ORGANIZER
+  #   parentRoles: ["USER"]
+  #   condition:
+  #     match:
+  #       expr: request.resource.attr.ownerId == request.principal.id
   # - name: TEAM_MEMBER
   #   parentRoles: ["USER"]
   #   condition:
@@ -25,3 +25,6 @@ derivedRoles:
   #   condition:
   #     match:
   #       expr: request.resource.attr.region == request.principal.attr.region
+
+# How do we determine if someone one is a USER
+  # or specifically an Organizer, Team Member or Bene?

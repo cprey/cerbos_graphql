@@ -70,14 +70,13 @@ class UsersQueries {
         id: user.id.toString(),
         kind: "user:object",
         attributes: {
-            id: user.id,
+            id: user.id.toString(),
             status: user.status.toString(),
-            ownerId: user.personId,
+            ownerId: user.personId.toString(),
         },
       },
     });
     
-    // log.error();
     console.log(authorized);
     if (authorized.actions["view"] !== Effect.ALLOW) {
       throw new AuthorizationError("Access denied");

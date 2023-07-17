@@ -22,6 +22,7 @@ import {
     @Inject(() => CerbosService)
     private cerbos: CerbosService;
   
+    // Doesn't make sense - reuse for Fund access
     @FieldResolver()
     async person(
       @Root() user: User,
@@ -34,9 +35,9 @@ import {
           id: user.id.toString(),
           kind: "user:object",
           attributes: {
-            id: user.id,
+            id: user.id.toString(),
             status: user.status.toString(),
-            ownerId: user.personId,
+            ownerId: user.personId.toString(),
           },
         },
       });

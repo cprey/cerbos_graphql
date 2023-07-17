@@ -15,7 +15,7 @@ export const Persons: Person[] = [
     email: "test+001@gofundme.com",
     firstName: "Frodo",
     lastName: "Baggins",
-    role: PersonRole.PERSON,
+    role: PersonRole.PERSON, // TODO how do we make this dynamic? IE look up roles and specify them by campaign??? Solve this first before implementing policy... I think we need a PersonService. 
     status: PersonStatus.ACTIVE
   },
   {

@@ -22,16 +22,15 @@ This will use Node18 to install Apollo GraphQL server and the official Cerbos he
 
 ## Usage
 
-Launch GraphQL Playground [localhhost:8000](http://localhost:8000) in your local browser.
+Launch GraphQL Playground [http://localhost:8000/graphql](http://localhost:8000/graphql) in your local browser.
 
 Edit the HTTP headers by adding the JSON as pictured below.
 
 ![img1](./playground.png)
 
-
 ```json
 {
- "token": "key:joe:finance" 
+  "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
 }
 ```
 
@@ -39,19 +38,10 @@ and the GraphQL Query
 
 ```json
 {
-  expense(id: "expense2") {
+  user(id: 1) {
     id
-    amount
-    status
-    vendor {
-      name
-    }
-    createdBy {
-      name
-    }
-    approvedBy {
-      name
-    }
+    firstName
+    lastName
   }
 }
 ```

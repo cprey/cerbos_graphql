@@ -35,7 +35,7 @@ export default async (request: ExpressContext): Promise<IContext> => {
     throw new AuthenticationError("Access denied: Token not valid");
   }
   const claims = jose.decodeJwt(request.req.headers["x-auth-token"])
-  const person = Persons.find((u) => u.id === parseInt(claims.sub));
+  const person = Persons.find((p) => p.id === parseInt(claims.sub));
 
   // User not found so denied
   if (!person) {
@@ -59,8 +59,16 @@ export default async (request: ExpressContext): Promise<IContext> => {
             resources,
           });
           return resources.map(
-            (key) =>
-              results.findResult({ kind: key.resource.kind, id: key.resource.id })
+            (key) => {
+              console.log({ 
+                kind: key.resource.kind, 
+                id: key.resource.id
+              });
+              return results.findResult({ 
+                kind: key.resource.kind, 
+                id: key.resource.id
+              })
+            }
           );
         }
       ),
