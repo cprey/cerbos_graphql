@@ -1,27 +1,27 @@
-// Copyright 2021 Zenauth Ltd.
-// SPDX-License-Identifier: Apache-2.0
-
 import { Field, ObjectType } from "type-graphql";
-import { Departments } from "../data/departments.data";
-import { Region } from "../data/regions.data";
-import { UserRole } from "../data/users.data";
+import Person from "./Person.type";
+import { UserStatus } from "../data/users.data";
 
 @ObjectType()
 export default class User {
   @Field()
-  id: string;
+  id: number;
 
   @Field()
-  name: string;
+  personId: number;
+
+  @Field(() => Person)
+  person: Person;
 
   @Field()
-  role: UserRole;
+  email: string;
 
   @Field()
-  department: Departments;
+  firstName: string;
 
-  @Field({ nullable: true })
-  region?: Region;
+  @Field()
+  lastName: string;
 
-  token: string;
+  @Field()
+  status: UserStatus;
 }

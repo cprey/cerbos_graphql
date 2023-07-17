@@ -18,6 +18,7 @@
     "dataloader": "^2.0.0",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
+    "jose": "^4.14.4",
     "node-config-ts": "^3.1.0",
     "normalize-url": ">=4.5.1",
     "reflect-metadata": "^0.1.13",

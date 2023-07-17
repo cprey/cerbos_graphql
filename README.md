@@ -22,16 +22,15 @@ This will use Node18 to install Apollo GraphQL server and the official Cerbos he
 
 ## Usage
 
-Launch GraphQL Playground [localhhost:8000](http://localhost:8000) in your local browser.
+Launch GraphQL Playground [http://localhost:8000/graphql](http://localhost:8000/graphql) in your local browser.
 
 Edit the HTTP headers by adding the JSON as pictured below.
 
 ![img1](./playground.png)
 
-
 ```json
 {
- "token": "key:joe:finance" 
+  "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
 }
 ```
 
@@ -39,19 +38,10 @@ and the GraphQL Query
 
 ```json
 {
-  expense(id: "expense2") {
+  user(id: 1) {
     id
-    amount
-    status
-    vendor {
-      name
-    }
-    createdBy {
-      name
-    }
-    approvedBy {
-      name
-    }
+    firstName
+    lastName
   }
 }
 ```
@@ -62,32 +52,23 @@ and the GraphQL Query
 
 To run these you need to set an HTTP header called `token` which identifies the user (and thus there permissions)
 
-Some exampe tokens:
+Some example tokens:
 
-- `key:sajit:it` is an IT Admin
-- `key:joe:finance` is an EMEA Finance person
-- `key:sally:sales` is an EMEA Sales person
-- `key:zeena:sales` is an North America sales person
-- `key:john:manager-emea` is an EMEA Manager in sales
-- `key:brock:manager-na` is an North America Manager in sales
-
-### Get an Expense
-
-```console
+1) the token below maps to the first active Person with a User account
+```
 {
-  expense(id: "expense2") {
+  "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
+}
+```
+
+### Get an GFM User for the Given Identity
+
+```
+{
+  user(id: 1) {
     id
-    amount
-    status
-    vendor {
-      name
-    }
-    createdBy {
-      name
-    }
-    approvedBy {
-      name
-    }
+    firstName
+    lastName
   }
 }
 ```

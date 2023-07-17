@@ -1,0 +1,12 @@
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  importDerivedRoles:
+    - common_roles
+  resource: "user:object"
+  rules:
+    - actions: ['view']
+      effect: EFFECT_ALLOW
+      derivedRoles:
+        - USER

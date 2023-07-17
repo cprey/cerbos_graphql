@@ -4,6 +4,13 @@ envFrom:
 
 cerbos:
   config:
+    audit:
+      enabled: true
+      accessLogsEnabled: true
+      decisionLogsEnabled: true
+      backend: file
+      file:
+        path: stdout
     # Configure the git storage driver
     storage:
       driver: "git"
