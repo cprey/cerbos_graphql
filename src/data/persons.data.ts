@@ -27,7 +27,3 @@ export const Persons: Person[] = [
     status: PersonStatus.ACTIVE,
   },
 ];
-
-export const personById = (id: number): Person => {
-  return Persons.find((c) => c.id === id);
-};

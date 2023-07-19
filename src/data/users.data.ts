@@ -1,5 +1,4 @@
 import User from "../types/User.type";
-import { personById } from "./persons.data";
 
 export enum UserRole {
   USER = "USER",
@@ -17,7 +16,6 @@ export const Users: User[] = [
   {
     id: 1,
     personId: 1,
-    person: personById(1),
     email: "test+001@gofundme.com",
     firstName: "Frodo",
     lastName: "Baggins",
@@ -26,7 +24,6 @@ export const Users: User[] = [
   {
     id: 2,
     personId: 2,
-    person: personById(2),
     email: "test+002@gofundme.com",
     firstName: "Samwise",
     lastName: "Gamgee",

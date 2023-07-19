@@ -1,7 +1,9 @@
 import { Service } from "typedi";
-import { personById, Persons } from "../data/persons.data";
+import { Persons } from "../data/persons.data";
 import Person from "../types/Person.type";
 import logger from "../utils/logger";
+import User from "../types/User.type";
+import { Users } from "../data/users.data";
 
 const log = logger("PersonsService");
 
@@ -16,6 +18,10 @@ export class PersonsService {
   }
 
   async get(id: number): Promise<Person> {
-    return personById(id);
+    return Persons.find((p) => p.id === id);
+  }
+
+  async user(person: Person): Promise<User | null> {
+    return Users.find((u) => u.personId === person.id) ?? null;
   }
 }

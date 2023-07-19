@@ -16,7 +16,7 @@ export default class Person {
   lastName: string;
 
   @Field()
-  role: PersonRole;
+  role: PersonRole; // @todo Move this into the Identity resolution type and figure out how to hide these other objects???
 
   @Field()
   status: PersonStatus;
