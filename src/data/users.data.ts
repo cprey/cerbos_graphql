@@ -30,4 +30,3 @@ export const Users: User[] = [
     status: UserStatus.ACTIVE,
   },
 ];
-

@@ -24,7 +24,10 @@ class IdentityQueries {
   }
 
   @Query((returns) => Identity)
-  async identity(@Arg("id") id: number, @Ctx() context: IContext): Promise<Identity> {
+  async identity(
+    @Arg("id") id: number,
+    @Ctx() context: IContext,
+  ): Promise<Identity> {
     // Get the user by ID
     const person = await this.personsService.get(id);
     if (!person) {

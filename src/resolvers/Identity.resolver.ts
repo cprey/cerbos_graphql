@@ -25,7 +25,6 @@ class IdentityResolver implements ResolverInterface<Identity> {
   @Inject(() => CerbosService)
   private cerbos: CerbosService;
 
-
   @Inject(() => PersonsService)
   private personsService: PersonsService;
 
@@ -35,17 +34,20 @@ class IdentityResolver implements ResolverInterface<Identity> {
 
   // Doesn't make sense - reuse for Fund access
   @FieldResolver()
-  async user(@Root() person: Person, @Ctx() context: IContext): Promise<User|null> {
+  async user(
+    @Root() person: Person,
+    @Ctx() context: IContext,
+  ): Promise<User | null> {
     const user = await this.personsService.user(person);
     if (!user) {
       throw new ApolloError("User not found");
     }
     // @todo Does it make sense to even authorize this since we know that this user is owned by the person?
-      // Seems like we should come up with a use case where someone might not be able to view these details? Also might be 
-      // Write uses cases are often better
-      // Should also only be User.id and User.status. None of the other crap.
-      // Showing Funds seems like the best option?
-      // What about what is viewable to everywhere one vs just the CO vs stats???
+    // Seems like we should come up with a use case where someone might not be able to view these details? Also might be
+    // Write uses cases are often better
+    // Should also only be User.id and User.status. None of the other crap.
+    // Showing Funds seems like the best option?
+    // What about what is viewable to everywhere one vs just the CO vs stats???
     const authorized = await context.loaders.authorize.load({
       actions: ["view:user"],
       resource: {
