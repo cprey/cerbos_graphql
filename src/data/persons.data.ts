@@ -1,7 +1,7 @@
 import Person from "../types/Person.type";
 
 export enum PersonRole {
-  PERSON = "PERSON",
+  PERSON = "Person",
 }
 
 export enum PersonStatus {

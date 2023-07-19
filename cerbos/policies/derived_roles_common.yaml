@@ -5,16 +5,23 @@ description: |-
 derivedRoles:
   name: common_roles
   definitions:
-    - name: USER
-      parentRoles: ["PERSON"]
+    # @todo come up with an Anonymous role that can view data like campaign details
+    - name: User
+      parentRoles: ["Person"]
       condition:
         match:
           expr: request.resource.attr.ownerId == request.principal.id
-  # - name: ORGANIZER
-  #   parentRoles: ["USER"]
-  #   condition:
-  #     match:
-  #       expr: request.resource.attr.ownerId == request.principal.id
+    - name: Donor
+      parentRoles: ["Person"]
+      condition:
+        match:
+          expr: request.resource.attr.ownerId == request.principal.id
+    # @todo Organizer would be specific to a fund. IE I am a user who owns a fund?
+    # - name: ORGANIZER
+    #   parentRoles: ["USER"]
+    #   condition:
+    #     match:
+    #       expr: request.resource.attr.ownerId == request.principal.id
   # - name: TEAM_MEMBER
   #   parentRoles: ["USER"]
   #   condition:

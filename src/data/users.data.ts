@@ -34,6 +34,3 @@ export const Users: User[] = [
   },
 ];
 
-export const userById = (id: number): User => {
-  return Users.find((c) => c.id === id);
-};
