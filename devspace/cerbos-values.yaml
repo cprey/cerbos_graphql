@@ -19,7 +19,7 @@ cerbos:
         # Replace with the URL of your GitHub repo.
         url: https://github.com/cprey/cerbos_graphql
         # Replace with the branch name of your repo.
-        branch: identity-mapping
+        branch: main
         # Remove or leave empty if the policies are not stored in a subdirectory.
         subDir: cerbos/policies
         # Path to checkout. By default, /work is a Kubernetes emptyDir volume that is only available for the lifetime of the pod.
