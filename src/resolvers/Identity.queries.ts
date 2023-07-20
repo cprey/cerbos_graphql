@@ -20,6 +20,7 @@ class IdentityQueries {
   // @todo
   // identity - without id should resolve from context and authorize against principle
   // identity - with id(s) should resolve from id and authorize ???
+  // We should be able to handle anonymous users as well???
 
   @Query((returns) => Identity)
   async whoami(@Ctx() context: IContext): Promise<Identity> {
