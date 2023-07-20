@@ -16,17 +16,16 @@
     "@cerbos/grpc": "^0.5.1",
     "apollo-server-express": "^2.21.0",
     "axios": "^0.21.3",
-    "dataloader": "^2.0.0",
+    "dataloader": "^2.2.2",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "jose": "^4.14.4",
-    "node-config-ts": "^3.1.0",
-    "normalize-url": ">=4.5.1",
+    "node-config-ts": "^3.3.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
     "typedi": "^0.10.0",
-    "uuid": "^8.3.2",
-    "winston": "^3.3.3"
+    "uuid": "^9.0.0",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
