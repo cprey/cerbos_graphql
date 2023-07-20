@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { AuthenticationError } from "apollo-server-errors";
-import { ExpressContext } from "apollo-server-express/dist/ApolloServer";
+import { ExpressContext } from "apollo-server-express";
 import DataLoader from "dataloader";
 import Container from "typedi";
 import { AuthorizationService } from "../services/Authorization.service";

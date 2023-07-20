@@ -22,65 +22,45 @@ This will use Node18 to install Apollo GraphQL server and the official Cerbos he
 
 ## Usage
 
-Launch GraphQL Playground [http://localhost:8000/graphql](http://localhost:8000/graphql) in your local browser.
+Launch The Apollo GraphQL SandBox [https://studio.apollographql.com/sandbox/explorer](https://studio.apollographql.com/sandbox/explorer) in your browser.
 
-Edit the HTTP headers by adding the JSON as pictured below.
+Edit the HTTP headers to include `x-auth-token` with a JWT from the reference guide below.
 
-![img1](./playground.png)
+![img1](./sandbox.png)
 
-```json
-{
-  "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
-}
-```
-
-and the GraphQL Query
-
-```json
-{
-  user(id: 1) {
-    id
-    firstName
-    lastName
-  }
-}
-```
-
-> CLICK THE DAMN BUTTON ALREADY!
+### JWT Reference Guide
+1. Valid Person: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg`
 
 ## Sample Queries
+The interface allows you to test all sorts of queries this section will attempt to showcase some of the more common examples.
 
-To run these you need to set an HTTP header called `token` which identifies the user (and thus there permissions)
-
-Some example tokens:
-
-1. the token below maps to the first active Person with a User account
-
+Should return your identity details based on your session token. 
 ```
-{
-  "x-auth-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MzQ5MDU4LCJleHAiOjE2ODk5NTM4NTgsImlzcyI6IkdvRnVuZE1lIiwibGF0IjoxNjg5MTE3NDUxfQ.mFFSQ-DeBeN7mSYRqVrIaNRqES1yPTvL_354u_pST0ATgMkBXny5NayQw67BJhXpxl_rp2GT6M6kww6sMZvYzg"
-}
-```
-
-### Get an GFM User for the Given Identity
-
-```
-{
-  user(id: 1) {
+query Whoami {
+  whoami {
     id
+    email
     firstName
     lastName
+    role
+  }
+}
+```
+Should return the following data.
+```json
+{
+  "data": {
+    "whoami": {
+      "id": 1,
+      "email": "test+001@gofundme.com",
+      "firstName": "Frodo",
+      "lastName": "Baggins",
+      "role": "Person"
+    }
   }
 }
 ```
 
-### Approve an Expense
-
-```console
-mutation {
-  approveExpense(id: "expense1")
-}
-```
 
 ## Details
 

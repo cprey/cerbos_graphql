@@ -1,4 +1,6 @@
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer } from "apollo-server";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
+
 import { config } from "node-config-ts";
 import { buildSchema, registerEnumType, ResolverData } from "type-graphql";
 import Container from "typedi";
@@ -47,20 +49,25 @@ export async function createGQLServer(
 
     const server = new ApolloServer({
       schema,
-      playground: config.graphql.playground,
-      tracing: config.graphql.tracing,
-      introspection: config.graphql.introspection,
+      introspection: true,
+      csrfPrevention: true,
+      // playground: config.graphql.playground,
+      // tracing: config.graphql.tracing,
+      // introspection: config.graphql.introspection,
       context: createContextFn,
       logger: log,
       plugins: [
         {
-          requestDidStart: () => ({
-            willSendResponse(requestContext) {
-              log.debug(`dispose  ${requestContext.context.requestId}`);
-              Container.reset(requestContext.context.requestId);
-            },
-          }),
+          async requestDidStart(initialRequestContext) {
+            return {
+              async willSendResponse(requestContext) {
+                log.debug(`dispose  ${requestContext.context.requestId}`);
+                Container.reset(requestContext.context.requestId);
+              }
+            }
+          }
         },
+        // ApolloServerPluginLandingPageLocalDefault(),
       ],
     });
     log.info("GraphQL server created");

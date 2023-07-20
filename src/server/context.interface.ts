@@ -1,4 +1,4 @@
-import { ExpressContext } from "apollo-server-express/dist/ApolloServer";
+import { ExpressContext } from "apollo-server-express";
 import DataLoader from "dataloader";
 import { ResourceCheck, CheckResourcesResult } from "@cerbos/core";
 import Person from "../types/Person.type";

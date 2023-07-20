@@ -54,6 +54,7 @@ dev:
     #devImage: ghcr.io/loft-sh/devspace-containers/typescript:18-alpine
     ports:
       - port: 8000:8000
+      - port: 4000:4000
     # Sync files between the local filesystem and the development container
     workingDir: /app/src
     sync:
