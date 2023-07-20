@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { userById, Users } from "../data/users.data";
+import { Users } from "../data/users.data";
 import User from "../types/User.type";
 import logger from "../utils/logger";
 
@@ -16,6 +16,6 @@ export class UsersService {
   }
 
   async get(id: number): Promise<User> {
-    return userById(id);
+    return Users.find((c) => c.id === id);
   }
 }

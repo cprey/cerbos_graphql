@@ -1,6 +1,3 @@
-// Copyright 2021 Zenauth Ltd.
-// SPDX-License-Identifier: Apache-2.0
-
 import { ApolloServer } from "apollo-server-express";
 import { config } from "node-config-ts";
 import { buildSchema, registerEnumType, ResolverData } from "type-graphql";

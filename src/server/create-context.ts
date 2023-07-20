@@ -5,47 +5,41 @@ import { AuthenticationError } from "apollo-server-errors";
 import { ExpressContext } from "apollo-server-express/dist/ApolloServer";
 import DataLoader from "dataloader";
 import Container from "typedi";
-import { Persons } from "../data/persons.data";
-import { CerbosService } from "../services/Cerbos.service";
+import { AuthorizationService } from "../services/Authorization.service";
 import { ResourceCheck } from "@cerbos/core";
 import logger from "../utils/logger";
 import { IContext } from "./context.interface";
-
-import * as jose from "jose";
+import { IdentityService } from "../services/Identity.service";
+import { AuthenticationService } from "../services/Authentication.service";
 
 const log = logger("createContext");
 
-export default async (request: ExpressContext): Promise<IContext> => {
+export default async (expressContext: ExpressContext): Promise<IContext> => {
   // Create a new request container
   const requestId = Math.floor(
     Math.random() * Number.MAX_SAFE_INTEGER,
   ).toString();
   const container = Container.of(requestId);
-  const cerbosService = Container.get(CerbosService);
+  const authenticationService = Container.get(AuthenticationService);
+  const authorizationService = Container.get(AuthorizationService);
+  const identityService = Container.get(IdentityService);
 
-  if (!request.req.headers["x-auth-token"]) {
-    throw new AuthenticationError("Access denied: No token provided");
-  }
+  const claims = await authenticationService.resolve(expressContext);
+  const person = await identityService.get(parseInt(claims.sub));
 
-  if (Array.isArray(request.req.headers["x-auth-token"])) {
-    throw new AuthenticationError("Access denied: Token not valid");
-  }
-  const claims = jose.decodeJwt(request.req.headers["x-auth-token"]);
-  const person = Persons.find((p) => p.id === parseInt(claims.sub));
-
-  // User not found so denied
+  // User not found so denied - what about anonymous users
   if (!person) {
     throw new AuthenticationError("Access denied: Token not valid");
   }
 
   // Set the context in the container
   const context: IContext = {
-    req: request.req,
+    req: expressContext.req,
     requestId,
     person,
     loaders: {
       authorize: new DataLoader(async (resources: ResourceCheck[]) => {
-        const results = await cerbosService.cerbos.checkResources({
+        const results = await authorizationService.cerbos.checkResources({
           principal: {
             id: person.id.toString(),
             roles: [person.role.toString()],

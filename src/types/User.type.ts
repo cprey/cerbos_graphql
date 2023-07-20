@@ -10,9 +10,6 @@ export default class User {
   @Field()
   personId: number;
 
-  @Field(() => Person)
-  person: Person;
-
   @Field()
   email: string;
 

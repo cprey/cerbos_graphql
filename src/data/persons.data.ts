@@ -1,7 +1,7 @@
 import Person from "../types/Person.type";
 
 export enum PersonRole {
-  PERSON = "PERSON",
+  PERSON = "Person",
 }
 
 export enum PersonStatus {
@@ -27,7 +27,3 @@ export const Persons: Person[] = [
     status: PersonStatus.ACTIVE,
   },
 ];
-
-export const personById = (id: number): Person => {
-  return Persons.find((c) => c.id === id);
-};
