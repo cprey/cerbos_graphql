@@ -7,13 +7,12 @@ import {
 } from "type-graphql";
 import { Inject, Service } from "typedi";
 import { IContext } from "../server/context.interface";
-import { CerbosService } from "../services/Cerbos.service";
 import { Effect } from "@cerbos/core";
 import Person from "../types/Person.type";
 import User from "../types/User.type";
 
 import logger from "../utils/logger";
-import { PersonsService } from "../services/Persons.service";
+import { IdentityService } from "../services/Identity.service";
 import { ApolloError } from "apollo-server-express";
 import Identity from "../types/Identity.type";
 
@@ -22,26 +21,23 @@ const log = logger("IdentityResolver");
 @Service()
 @Resolver((of) => Identity)
 class IdentityResolver implements ResolverInterface<Identity> {
-  @Inject(() => CerbosService)
-  private cerbos: CerbosService;
-
-  @Inject(() => PersonsService)
-  private personsService: PersonsService;
+  @Inject(() => IdentityService)
+  private identityService: IdentityService;
 
   constructor() {
     log.info("created");
   }
 
-  // Doesn't make sense - reuse for Fund access
   @FieldResolver()
   async user(
     @Root() person: Person,
     @Ctx() context: IContext,
   ): Promise<User | null> {
-    const user = await this.personsService.user(person);
+    const user = await this.identityService.user(person);
     if (!user) {
       throw new ApolloError("User not found");
     }
+    return user;
     // @todo Does it make sense to even authorize this since we know that this user is owned by the person?
     // Seems like we should come up with a use case where someone might not be able to view these details? Also might be
     // Write uses cases are often better

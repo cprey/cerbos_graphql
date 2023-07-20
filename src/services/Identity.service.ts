@@ -5,10 +5,10 @@ import logger from "../utils/logger";
 import User from "../types/User.type";
 import { Users } from "../data/users.data";
 
-const log = logger("PersonsService");
+const log = logger("IdentityService");
 
 @Service({ global: true })
-export class PersonsService {
+export class IdentityService {
   constructor() {
     log.info("created");
   }
