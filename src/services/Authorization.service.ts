@@ -19,6 +19,8 @@ export class AuthorizationService {
   public cerbos: Cerbos;
 
   constructor() {
-    this.cerbos = new Cerbos(config.cerbos.host, { tls: config.cerbos.tls });
+    this.cerbos = new Cerbos(config.cerbos.host, { 
+      tls: config.cerbos.tls 
+    });
   }
 }
